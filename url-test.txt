@@ -1,0 +1,5 @@
+http://my-service.namespace.svc
+https://api.gli.id
+http://my-service.namespace.svc
+api.example.com
+api.example.id
