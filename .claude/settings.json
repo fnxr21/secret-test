@@ -1,0 +1,55 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.env)",
+      "Read(**/credential-google.json)",
+      "Read(**/*credential*.json)",
+      "Read(**/*service-account*.json)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/id_rsa*)",
+      "Read(**/secrets/**)",
+      "Read(~/.config/gcloud/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.azure/**)",
+      "Read(~/.ssh/**)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)",
+      "Edit(**/*credential*.json)",
+      "Edit(**/*.pem)",
+      "Edit(**/*.key)",
+      "Bash(printenv:*)",
+      "Bash(env)",
+      "Bash(gcloud auth print-access-token:*)",
+      "Bash(gcloud auth application-default print-access-token:*)",
+      "Bash(git push:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)"
+    ],
+    "ask": [
+      "Bash(git commit:*)",
+      "WebFetch"
+    ]
+  },
+  "env": {
+    "DISABLE_TELEMETRY": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_BUG_COMMAND": "1"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|MultiEdit|Write|Grep|Glob|Bash|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect_secrets.py\""
+          }
+        ]
+      }
+    ]
+  }
+}
